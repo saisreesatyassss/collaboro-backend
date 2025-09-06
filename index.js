@@ -9,15 +9,10 @@ const axios = require('axios');
 const path = require('path');
 const { uploadVideo, getVideoUrl, deleteVideo ,uploadImage,getFileUrl} = require('./s3_video_management');
 const multer = require('multer'); 
-const siteTextRoutes = require('./routes/siteText');
-const collectionsRoutes = require('./routes/collections');
+const authRoutes = require('./routes/auth');
 
  
 const bucketName = process.env.AWS_BUCKET_NAME;
-
- 
-  
-
 
 
 const app = express();
@@ -52,8 +47,9 @@ app.get('/', (req, res) => {
   res.send('Hello collaboro backend');
 });
 
-app.use('/site-text', siteTextRoutes);
-app.use('/', collectionsRoutes);
+app.use('/auth', authRoutes);
+
+
 
 
 
