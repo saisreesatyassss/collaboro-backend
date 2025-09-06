@@ -1,0 +1,43 @@
+# Ignore .env files
+.env
+
+# Ignore node_modules directory (for Node.js projects)
+node_modules/
+/node_modules
+outputs/
+node_modules
+# Ignore build directories
+/dist
+/build
+/target
+
+# Ignore logs
+*.log
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore OS-specific files
+.DS_Store  # macOS Finder-specific files
+Thumbs.db  # Windows thumbnail cache files
+
+# Ignore dependency manager files
+/pip-wheel-metadata/
+package-lock.json
+yarn.lock
+
+# Ignore testing output
+coverage/
+*.lcov
+
+# Ignore temporary files
+*.swp  # vim temp files
+*.bak  # backup files
+*.tmp  # temporary files
+
+# Ignore OS-specific files
+*.swo  # vim swap files
+*.swm
