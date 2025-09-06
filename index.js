@@ -11,6 +11,9 @@ const { uploadVideo, getVideoUrl, deleteVideo ,uploadImage,getFileUrl} = require
 const multer = require('multer'); 
 const authRoutes = require('./routes/auth');
 
+const projectRoutes = require('./routes/projects');
+
+
  
 const bucketName = process.env.AWS_BUCKET_NAME;
 
@@ -49,6 +52,7 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authRoutes);
 
+app.use('/projects', projectRoutes);
 
 
 
