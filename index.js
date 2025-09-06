@@ -49,7 +49,7 @@ pool.on('error', (err) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Hello mash backend');
+  res.send('Hello collaboro backend');
 });
 
 app.use('/site-text', siteTextRoutes);
