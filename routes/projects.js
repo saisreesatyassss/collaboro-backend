@@ -4,6 +4,34 @@ const authMiddleware = require('../authMiddleware');
 
 const router = express.Router();
 
+
+
+
+router.get('/allprojects', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM projects');
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+router.get('/allusers'  , async (req, res) => {
+  try {
+    const result = await pool.query(
+      'SELECT id, firstName, lastName, email FROM users'
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching users:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+
 // Create Project
 router.post('/', authMiddleware, async (req, res) => {
   const { name, tags, priority, description, upload, members } = req.body;
@@ -25,6 +53,7 @@ router.post('/', authMiddleware, async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
 
 // Edit Project
 router.put('/:id', authMiddleware, async (req, res) => {
@@ -80,30 +109,21 @@ router.post('/:id/add-user', authMiddleware, async (req, res) => {
 });
 
 // Get All Projects for User
-router.get('/', async (req, res) => {
-  const userId = req.user.id;
-  try {
-    const projects = await pool.query(
-      `SELECT * FROM projects WHERE $1 = ANY(members)`,
-      [userId]
-    );
-    res.json(projects.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
-
-router.get('/allusers', authMiddleware, async (req, res) => {
-  try {
-    const result = await pool.query(
-      'SELECT id, firstName, lastName, email FROM users'
-    );
-    res.json(result.rows);
-  } catch (err) {
-    console.error('Error fetching users:', err);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
+ 
+// Apply middleware to protect route
+// router.get('/', authenticate, async (req, res) => {
+//   const userId = req.user.id; // now this will exist
+//   try {
+//     const projects = await pool.query(
+//       'SELECT * FROM projects WHERE $1 = ANY(members)',
+//       [userId]
+//     );
+//     res.json(projects.rows);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ error: 'Server error' });
+//   }
+// });
+// Get All Projects
 
 module.exports = router;
